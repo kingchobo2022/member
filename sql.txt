@@ -1,0 +1,70 @@
+# 데이터베이스 생성
+create database `memsite`;
+
+# 데티터베이스 조회
+SHOW DATABASES;
+
+
+# 데이터베이스 drop 시키기 
+DROP DATABASE `member`;
+
+# 사용할 DB 선택
+USE `memsite`;
+
+# 테이블 생성하기
+CREATE TABLE `member` (
+`idx` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+`id` VARCHAR(100) DEFAULT '',
+`name` VARCHAR(100) DEFAULT '',
+`email` VARCHAR(100) DEFAULT '',
+`password` VARCHAR(100) DEFAULT '',
+`zipcode` CHAR(5) DEFAULT '',
+`addr1` VARCHAR(255) DEFAULT '',
+`addr2` VARCHAR(255) DEFAULT '',
+`photo` VARCHAR(100) DEFAULT '',
+`create_at` DATETIME,
+`ip` VARCHAR(20) DEFAULT '',
+PRIMARY KEY(idx),
+UNIQUE INDEX `id` (`id`) USING BTREE
+);
+
+# 테이블 목록 조회
+SHOW TABLES;
+
+# 특정 테이블의 데이터 조회
+SELECT * FROM `member`;
+
+# 특정 테이블에 데이터 입력하기
+INSERT INTO MEMBER (id, `name`, `email`) VALUES ('kingchobo', '킹초보', 'email@email.com');
+
+# 게시판 테이블
+CREATE TABLE board(
+`idx` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+`bcode` CHAR(6) DEFAULT '' COMMENT '게시판 코드',
+`id` VARCHAR(50) DEFAULT '' COMMENT '아이디',
+`name` VARCHAR(50) DEFAULT '' COMMENT '이름',
+`subject` VARCHAR(255) DEFAULT '' COMMENT '제목',
+`content` MEDIUMTEXT COMMENT '내용',
+`hit` INTEGER UNSIGNED DEFAULT 0 COMMENT '조회 수',
+`ip` VARCHAR(30) DEFAULT '' COMMENT '글쓴이 ip',
+`create_at` DATETIME NOT NULL COMMENT '글 등록일시',
+INDEX `bcode`(`bcode`),
+INDEX `id`(`id`),
+PRIMARY KEY(idx)
+);
+
+
+# 테이블 삭제
+DROP TABLE board;
+
+# 인덱스 보기
+SHOW INDEX FROM board;
+
+# 인덱스 생성
+ALTER TABLE board ADD INDEX `bcode`(`bcode`);
+
+# 복합 인덱스 생성
+ALTER TABLE board ADD INDEX `bcode_id` (`bcode`,`id`);
+
+# 인덱스 삭제
+ALTER TABLE board DROP INDEX `bcode_id`;
