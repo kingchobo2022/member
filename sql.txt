@@ -53,6 +53,9 @@ INDEX `id`(`id`),
 PRIMARY KEY(idx)
 );
 
+# 댓글수 필드 추가
+alter table board add column comment_cnt integer unsigned default 0 after hit;
+
 
 # 테이블 삭제
 DROP TABLE board;
@@ -68,3 +71,15 @@ ALTER TABLE board ADD INDEX `bcode_id` (`bcode`,`id`);
 
 # 인덱스 삭제
 ALTER TABLE board DROP INDEX `bcode_id`;
+
+# 댓글 
+CREATE TABLE `comment`(
+idx INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+pidx INTEGER NOT NULL,
+id VARCHAR(50) DEFAULT '' COMMENT '글작성자',
+content TEXT COMMENT '댓글내용',
+create_at DATETIME NOT NULL,
+ip VARCHAR(30),
+PRIMARY KEY(idx)
+);
+
